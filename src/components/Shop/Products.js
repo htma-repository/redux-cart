@@ -2,7 +2,7 @@ import ProductItem from "./ProductItem";
 import classes from "./Products.module.css";
 import DUMMY_MEALS from "./DummyMeals";
 
-const Products = (props) => {
+const Products = () => {
   const availableItems = DUMMY_MEALS.map((item) => {
     return (
       <ProductItem
@@ -10,6 +10,7 @@ const Products = (props) => {
         price={item.price}
         description={item.description}
         key={item.id}
+        id={item.id}
       />
     );
   });
