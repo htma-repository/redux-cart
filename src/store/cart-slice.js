@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialCartState = {
   items: [],
+  // totalQuantity: 0,
   totalPriceAmount: 0,
 };
 
@@ -12,6 +13,7 @@ const cartSlice = createSlice({
     addItems(state, action) {
       const updatedTotalPriceAmount =
         state.totalPriceAmount + action.payload.price * action.payload.amount;
+      const totalPriceAmountToFixed = updatedTotalPriceAmount.toFixed(2);
 
       const existingCartItemIndex = state.items.findIndex((item) => {
         return item.id === action.payload.id;
@@ -32,12 +34,15 @@ const cartSlice = createSlice({
       }
 
       state.items = updatedItems;
-      state.totalPriceAmount = updatedTotalPriceAmount;
+      state.totalPriceAmount = +totalPriceAmountToFixed;
 
-      // * Another aproach but only can use if use redux-toolkit, not redux as general or reactContext.
+      // * Another approach but only can use if use redux-toolkit, not redux as general or reactContext.
 
       /* const newItem = action.payload;
       const existingItem = state.items.find((item) => item.id === newItem.id);
+      const updatedTotalPriceAmount =
+        state.totalPriceAmount + newItem.price * 1;
+      state.totalPriceAmount = updatedTotalPriceAmount;
       state.totalQuantity++;
       if (!existingItem) {
         const newItems = {
@@ -60,6 +65,7 @@ const cartSlice = createSlice({
       const existingItems = state.items[existingRemoveItemsIndex];
       const removedTotalPriceAmount =
         state.totalPriceAmount - existingItems.price;
+      const removedTotalPriceAmountToFixed = removedTotalPriceAmount.toFixed(2);
 
       let removedItems;
 
@@ -75,15 +81,16 @@ const cartSlice = createSlice({
       }
 
       state.items = removedItems;
-      state.totalPriceAmount = removedTotalPriceAmount;
+      state.totalPriceAmount = +removedTotalPriceAmountToFixed;
 
-      // * Another aproach but only can use if use redux-toolkit, not redux as general or reactContext.
+      // * Another approach but only can use if use redux-toolkit, not redux as general or reactContext.
 
-      /* const id = action.payload;
+      /*  const id = action.payload;
       const existingItem = state.items.find((item) => item.id === id);
+      state.totalPriceAmount -= existingItem.price;
       state.totalQuantity--;
       if (existingItem.amount === 1) {
-        state.items.filter((item) => item.id !== id);
+        state.items = state.items.filter((item) => item.id !== id);
       } else {
         existingItem.amount--;
         existingItem.totalPrice -= existingItem.price;

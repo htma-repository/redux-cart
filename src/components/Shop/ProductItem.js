@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 
-import { cartAction } from "../store/cart-slice";
+import { cartAction } from "../../store/cart-slice";
 import Card from "../UI/Card";
 import classes from "./ProductItem.module.css";
 
@@ -10,6 +10,11 @@ const ProductItem = (props) => {
   const price = props.price.toFixed(2);
 
   const addToCartHandler = () => {
+    /* const orderItem = {
+      id: props.id,
+      title: props.title,
+      price: props.price,
+    }; */
     const orderItem = {
       price,
       id: props.id,

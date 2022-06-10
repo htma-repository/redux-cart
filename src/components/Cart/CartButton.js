@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import { uiActions } from "../store/ui-slice";
+import { uiActions } from "../../store/ui-slice";
 import classes from "./CartButton.module.css";
 
 const CartButton = () => {
   const dispatch = useDispatch();
+  // const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const items = useSelector((state) => state.cart.items);
 
   const cartItemsNumber = items.reduce((curr, item) => {

@@ -6,7 +6,7 @@ const Products = () => {
   const availableItems = DUMMY_MEALS.map((item) => {
     return (
       <ProductItem
-        title={item.name}
+        title={item.title}
         price={item.price}
         description={item.description}
         key={item.id}

@@ -1,5 +1,6 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 import Card from "../UI/Card";
 import classes from "./Cart.module.css";
@@ -9,7 +10,15 @@ const Cart = () => {
   const items = useSelector((state) => state.cart.items);
   const totalPrice = useSelector((state) => state.cart.totalPriceAmount);
 
-  const totalAllPrice = totalPrice.toFixed(2);
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "https://redux-cart-b7b3f-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json",
+      responseType: "stream",
+    }).then(function (response) {
+      console.log(response.data);
+    });
+  }, []);
 
   const content =
     items.length === 0 ? (
@@ -21,19 +30,21 @@ const Cart = () => {
           {items.map((item) => {
             return (
               <CartItem
-                id={item.id}
+                /* id={item.id}
                 title={item.title}
                 price={item.price}
                 amount={item.amount}
                 key={item.id}
+                item={item} */
                 item={item}
+                key={item.id}
               />
             );
           })}
         </ul>
         <div className={classes.cart_div}>
           <h4>Total Price :</h4>
-          <span>$ {totalAllPrice}</span>
+          <span>$ {totalPrice}</span>
         </div>
       </Fragment>
     );

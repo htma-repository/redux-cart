@@ -6,6 +6,8 @@
   align-items: center;
   justify-content: space-between;
   background-color: #252424;
+  position: sticky;
+  top: 0;
 }
 
 .header h1 {
