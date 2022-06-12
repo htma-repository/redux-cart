@@ -1,24 +1,30 @@
-import { Fragment, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { Fragment, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
 import Card from "../UI/Card";
 import classes from "./Cart.module.css";
 import CartItem from "./CartItem";
+import { cartAction } from "../../store/cart-slice";
 
 const Cart = () => {
+  // const [items, setItems] = useState([]);
+  const dispatch = useDispatch();
   const items = useSelector((state) => state.cart.items);
   const totalPrice = useSelector((state) => state.cart.totalPriceAmount);
 
+  console.log(items);
+
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "https://redux-cart-b7b3f-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json",
-      responseType: "stream",
-    }).then(function (response) {
-      console.log(response.data);
-    });
-  }, []);
+    const getData = async () => {
+      const response = await axios({
+        method: "get",
+        url: "https://redux-cart-b7b3f-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json",
+      });
+      const data = await response.data;
+    };
+    getData();
+  }, [dispatch, items.id]);
 
   const content =
     items.length === 0 ? (
